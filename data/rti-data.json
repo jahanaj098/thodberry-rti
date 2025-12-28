@@ -1,8 +1,25 @@
 {
-  "rtis": [],
+  "rtis": [
+    {
+      "id": "rti-1766919123829-twg8s7in7",
+      "department": "Ministry of Finance",
+      "authority": "Central",
+      "state": "Madhya Pradesh",
+      "subject": "First appeal",
+      "year": 2222,
+      "date": "2222-02-12",
+      "tags": [
+        "Test"
+      ],
+      "disclosure": "njj",
+      "documentUrl": "/assets/documents/rti-1766919123829-twg8s7in7.jpg",
+      "uploadedBy": "jahan",
+      "uploadDate": "2025-12-28T10:52:05.378Z"
+    }
+  ],
   "metadata": {
-    "totalCount": 0,
-    "lastUpdated": "2025-12-28T10:34:23.254Z",
+    "totalCount": 1,
+    "lastUpdated": "2025-12-28T10:52:05.384Z",
     "version": "1.0"
   }
 }
