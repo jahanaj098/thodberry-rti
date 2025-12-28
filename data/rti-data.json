@@ -1,6 +1,21 @@
 {
   "rtis": [
     {
+      "id": "rti-1766928643458-rf9jcw8ax",
+      "department": "LSGD",
+      "authority": "State",
+      "state": "Kerala",
+      "subject": "Mail to lsgd",
+      "year": 2025,
+      "date": "2025-12-28",
+      "tags": [],
+      "disclosure": "Mail to lsgd kerala and the reply from malappuram ",
+      "adminNote": "admin note",
+      "documentUrl": "/assets/documents/rti-1766928643458-rf9jcw8ax.pdf",
+      "uploadedBy": "Ashfaque Jahan",
+      "uploadDate": "2025-12-28T13:30:45.037Z"
+    },
+    {
       "id": "rti-1766927855410-dy7gubqf1",
       "department": "Ministry of Education",
       "authority": "State",
