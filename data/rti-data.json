@@ -1,6 +1,22 @@
 {
   "rtis": [
     {
+      "id": "rti-1766920237990-tg6893qhz",
+      "department": "Ministry of Finance",
+      "authority": "Local",
+      "state": "Kerala",
+      "subject": "Auth",
+      "year": 2025,
+      "date": "2025-12-11",
+      "tags": [
+        "auth for people"
+      ],
+      "disclosure": "kerala auth paper",
+      "documentUrl": "/assets/documents/rti-1766920237990-tg6893qhz.pdf",
+      "uploadedBy": "harold",
+      "uploadDate": "2025-12-28T11:10:39.226Z"
+    },
+    {
       "id": "rti-1766919123829-twg8s7in7",
       "department": "Ministry of Finance",
       "authority": "Central",
@@ -18,8 +34,8 @@
     }
   ],
   "metadata": {
-    "totalCount": 1,
-    "lastUpdated": "2025-12-28T10:52:05.384Z",
+    "totalCount": 2,
+    "lastUpdated": "2025-12-28T11:10:39.498Z",
     "version": "1.0"
   }
 }
