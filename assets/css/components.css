@@ -121,7 +121,17 @@
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--accent-primary);
-    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-desc {
+    max-width: 700px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    display: block;
 }
 
 /* --- CARDS: HOLOGRAPHIC REDUX --- */
