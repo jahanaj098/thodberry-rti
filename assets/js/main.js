@@ -241,3 +241,54 @@ if (typeof window !== 'undefined') {
     window.formatDate = formatDate;
     window.debounce = debounce;
 }
+
+// ============================================
+// PREMIUM ANIMATIONS (Scroll & Reveal)
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Text Reveal Effect for Hero
+    const heroTitle = document.querySelector('h1');
+    if (heroTitle) {
+        heroTitle.style.opacity = '0';
+        heroTitle.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            heroTitle.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }, 100);
+    }
+
+    // 2. Intersectional Observer for Sections
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all cards and sections
+    document.querySelectorAll('.card, .stat-card, .section h2, .section p').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        observer.observe(el);
+    });
+
+    // Add visible class style dynamically
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    `;
+    document.head.appendChild(styleSheet);
+});
