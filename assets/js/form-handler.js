@@ -194,6 +194,24 @@ function handleFormSubmission() {
         // For public submission, we'll save to localStorage as a draft
         // In a real implementation, this would send an email or notification
         try {
+            // Helper to convert file to Base64
+            const fileToBase64 = (file) => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+
+            // Get file if present
+            const fileInput = document.getElementById('rti-file');
+            let fileContent = null;
+            let fileName = null;
+
+            if (fileInput && fileInput.files.length > 0) {
+                fileContent = await fileToBase64(fileInput.files[0]);
+                fileName = fileInput.files[0].name;
+            }
+
             // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 1500));
 
@@ -201,8 +219,11 @@ function handleFormSubmission() {
             const submissions = JSON.parse(localStorage.getItem('rti_submissions') || '[]');
             submissions.push({
                 ...data,
+                fileContent: fileContent, // Base64 string
+                fileName: fileName,
                 submittedAt: new Date().toISOString(),
-                status: 'pending'
+                status: 'pending',
+                id: 'sub_' + Date.now() // Temp ID
             });
             localStorage.setItem('rti_submissions', JSON.stringify(submissions));
 
