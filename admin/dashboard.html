@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Dashboard | Thodberry RTI Intelligence</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+
+    <style>
+        .admin-nav {
+            background: var(--color-background-elevated);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-4) 0;
+            margin-bottom: var(--space-6);
+        }
+
+        .admin-nav-links {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .admin-nav-link {
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .admin-nav-link:hover,
+        .admin-nav-link.active {
+            background: var(--color-primary);
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="container">
+            <div class="flex justify-between items-center">
+                <div class="admin-nav-links">
+                    <a href="dashboard.html" class="admin-nav-link active">📊 Dashboard</a>
+                    <a href="upload.html" class="admin-nav-link">📤 Upload RTI</a>
+                    <a href="manage.html" class="admin-nav-link">📝 Manage</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html" class="text-sm text-secondary">View Site →</a>
+                    <button id="logout-btn" class="btn btn-sm btn-outline">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="mb-8">
+            <h1>Admin Dashboard</h1>
+            <p class="text-secondary">Welcome to Thodberry RTI Intelligence admin panel</p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid mb-8">
+            <div class="stat-card">
+                <div class="stat-value" id="total-rtis">0</div>
+                <div class="stat-label">Total RTIs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="this-month">0</div>
+                <div class="stat-label">Added This Month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="unique-depts">0</div>
+                <div class="stat-label">Departments</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="unique-states">0</div>
+                <div class="stat-label">States/UTs</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-2 gap-6 mb-8">
+            <div class="card">
+                <h3>📤 Upload New RTI</h3>
+                <p class="text-secondary mb-4">Add a new RTI reply to the database</p>
+                <a href="upload.html" class="btn btn-primary">Go to Upload</a>
+            </div>
+
+            <div class="card">
+                <h3>📝 Manage RTIs</h3>
+                <p class="text-secondary mb-4">View, edit, or delete existing RTI entries</p>
+                <a href="manage.html" class="btn btn-secondary">Manage Entries</a>
+            </div>
+        </div>
+
+        <!-- Recent RTIs -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Recent RTI Additions</h3>
+            </div>
+            <div id="recent-rtis">
+                <p class="text-center text-muted py-6">Loading RTI data...</p>
+            </div>
+        </div>
+
+        <!-- System Info -->
+        <div class="card mt-6" style="background: var(--color-background-alt);">
+            <h4>System Information</h4>
+            <div class="grid grid-2 gap-4 mt-4 text-sm">
+                <div>
+                    <span class="text-muted">Repository:</span><br>
+                    <span id="repo-name">Loading...</span>
+                </div>
+                <div>
+                    <span class="text-muted">Token Status:</span><br>
+                    <span class="badge badge-success">✓ Active</span>
+                </div>
+                <div>
+                    <span class="text-muted">Last Login:</span><br>
+                    <span id="login-time">Loading...</span>
+                </div>
+                <div>
+                    <span class="text-muted">Data File:</span><br>
+                    <code style="font-size: 0.85em;">data/rti-data.json</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../config.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/github-api.js"></script>
+    <script src="../assets/js/admin-auth.js"></script>
+
+    <script>
+        // Initialize auth
+        const auth = initAdminAuth();
+        const githubAPI = new GitHubAPI();
+
+        // Logout handler
+        document.getElementById('logout-btn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to logout?')) {
+                auth.logout();
+            }
+        });
+
+        // Load system info
+        document.getElementById('repo-name').textContent = `${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`;
+        const loginTime = auth.getLoginTime();
+        if (loginTime) {
+            document.getElementById('login-time').textContent = formatDate(loginTime);
+        }
+
+        // Load RTI data
+        async function loadDashboardData() {
+            try {
+                const rtiDataFile = await githubAPI.getFile(GITHUB_CONFIG.dataPath);
+
+                if (!rtiDataFile) {
+                    document.getElementById('recent-rtis').innerHTML = '<p class="text-center text-muted py-6">No RTI data found. Upload your first RTI!</p>';
+                    return;
+                }
+
+                const rtiData = JSON.parse(rtiDataFile.content);
+                const rtis = rtiData.rtis || [];
+
+                // Update stats
+                document.getElementById('total-rtis').textContent = rtis.length;
+
+                // This month count
+                const thisMonth = new Date().getMonth();
+                const thisYear = new Date().getFullYear();
+                const thisMonthCount = rtis.filter(r => {
+                    const date = new Date(r.uploadDate);
+                    return date.getMonth() === thisMonth && date.getFullYear() === thisYear;
+                }).length;
+                document.getElementById('this-month').textContent = thisMonthCount;
+
+                // Unique departments and states
+                const departments = new Set(rtis.map(r => r.department));
+                const states = new Set(rtis.map(r => r.state).filter(s => s));
+                document.getElementById('unique-depts').textContent = departments.size;
+                document.getElementById('unique-states').textContent = states.size;
+
+                // Recent RTIs (last 5)
+                const recentRTIs = rtis.slice(0, 5);
+                if (recentRTIs.length === 0) {
+                    document.getElementById('recent-rtis').innerHTML = '<p class="text-center text-muted py-6">No RTIs yet</p>';
+                } else {
+                    const html = recentRTIs.map(rti => `
+            <div class="rti-card">
+              <div class="rti-card-header">
+                <h4 class="rti-card-title">${rti.subject}</h4>
+                <span class="department-badge">${rti.department}</span>
+              </div>
+              <div class="rti-card-meta">
+                <span>📅 ${rti.date || 'No date'}</span>
+                <span>📍 ${rti.state || rti.authority}</span>
+                <span>👤 ${rti.uploadedBy}</span>
+              </div>
+              ${rti.disclosure ? `<p class="rti-card-disclosure">${rti.disclosure}</p>` : ''}
+            </div>
+          `).join('');
+                    document.getElementById('recent-rtis').innerHTML = html;
+                }
+
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                document.getElementById('recent-rtis').innerHTML = '<p class="text-center text-error py-6">Error loading data. Check console for details.</p>';
+            }
+        }
+
+        loadDashboardData();
+    </script>
+</body>
+
+</html>

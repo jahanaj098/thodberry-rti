@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Upload RTI | Admin | Thodberry RTI Intelligence</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+
+    <style>
+        .admin-nav {
+            background: var(--color-background-elevated);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-4) 0;
+            margin-bottom: var(--space-6);
+        }
+
+        .admin-nav-links {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .admin-nav-link {
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .admin-nav-link:hover,
+        .admin-nav-link.active {
+            background: var(--color-primary);
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="container">
+            <div class="flex justify-between items-center">
+                <div class="admin-nav-links">
+                    <a href="dashboard.html" class="admin-nav-link">📊 Dashboard</a>
+                    <a href="upload.html" class="admin-nav-link active">📤 Upload RTI</a>
+                    <a href="manage.html" class="admin-nav-link">📝 Manage</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html" class="text-sm text-secondary">View Site →</a>
+                    <button id="logout-btn" class="btn btn-sm btn-outline">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container container-narrow">
+        <div class="mb-8">
+            <h1>Upload New RTI</h1>
+            <p class="text-secondary">Add a new RTI reply to the public database</p>
+        </div>
+
+        <!-- Upload Form -->
+        <form id="admin-upload-form" class="card">
+            <h2 class="mb-6">RTI Information</h2>
+
+            <!-- Document Upload -->
+            <div class="form-group">
+                <label class="form-label" for="rti-document">
+                    RTI Document <span style="color: var(--color-error);">*</span>
+                </label>
+                <input type="file" id="rti-document" name="rti-document" accept=".pdf,.jpg,.jpeg,.png" required
+                    class="form-input">
+                <span class="form-help">PDF or image (JPG, PNG), max 10MB</span>
+                <div id="file-info" class="file-info hidden mt-3"></div>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group">
+                <label class="form-label" for="department">
+                    Department/Authority <span style="color: var(--color-error);">*</span>
+                </label>
+                <input type="text" id="department" name="department" placeholder="e.g., Kerala Health Department"
+                    required class="form-input" list="department-suggestions">
+                <datalist id="department-suggestions">
+                    <option value="Ministry of Health and Family Welfare">
+                    <option value="Ministry of Education">
+                    <option value="Ministry of Finance">
+                    <option value="Ministry of Home Affairs">
+                </datalist>
+            </div>
+
+            <!-- Authority Level -->
+            <div class="form-group">
+                <label class="form-label" for="authority">
+                    Authority Level <span style="color: var(--color-error);">*</span>
+                </label>
+                <select id="authority" name="authority" required class="form-select">
+                    <option value="">Select authority level</option>
+                    <option value="Central">Central Government</option>
+                    <option value="State">State Government</option>
+                    <option value="Local">Local Body</option>
+                </select>
+            </div>
+
+            <!-- State -->
+            <div class="form-group">
+                <label class="form-label" for="state">
+                    State/UT
+                </label>
+                <select id="state" name="state" class="form-select">
+                    <option value="">Select state (if applicable)</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Delhi">Delhi (NCT)</option>
+                    <option value="Puducherry">Puducherry</option>
+                </select>
+            </div>
+
+            <!-- Subject -->
+            <div class="form-group">
+                <label class="form-label" for="subject">
+                    Subject/Topic <span style="color: var(--color-error);">*</span>
+                </label>
+                <input type="text" id="subject" name="subject" placeholder="e.g., Hospital fire safety audits" required
+                    class="form-input">
+            </div>
+
+            <!-- Date -->
+            <div class="form-group">
+                <label class="form-label" for="reply-date">
+                    Date of RTI Reply
+                </label>
+                <input type="date" id="reply-date" name="reply-date" class="form-input">
+            </div>
+
+            <!-- Tags -->
+            <div class="form-group">
+                <label class="form-label" for="tags">
+                    Tags <span style="color: var(--color-error);">*</span>
+                </label>
+                <input type="text" id="tags" name="tags" placeholder="health, safety, audit (comma-separated)" required
+                    class="form-input">
+                <span class="form-help">Enter comma-separated tags for searchability</span>
+            </div>
+
+            <!-- Key Disclosure -->
+            <div class="form-group">
+                <label class="form-label" for="key-disclosure">
+                    Key Disclosure Summary <span style="color: var(--color-error);">*</span>
+                </label>
+                <textarea id="key-disclosure" name="key-disclosure"
+                    placeholder="Summarize the main disclosure in 1-2 sentences" required class="form-textarea"
+                    rows="4"></textarea>
+                <span class="form-help">This will be displayed in search results</span>
+            </div>
+
+            <!-- Contributor -->
+            <div class="form-group">
+                <label class="form-label" for="contributor">
+                    Contributor Name (Optional)
+                </label>
+                <input type="text" id="contributor" name="contributor"
+                    placeholder="Name or organization (leave blank for 'Admin')" class="form-input">
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-4 mt-8">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    📤 Upload to GitHub
+                </button>
+                <button type="button" id="preview-btn" class="btn btn-secondary">
+                    👁️ Preview
+                </button>
+                <button type="reset" class="btn btn-outline">
+                    Reset
+                </button>
+            </div>
+
+            <p class="text-sm text-muted mt-6">
+                This will commit the RTI document and data directly to the GitHub repository.
+            </p>
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../config.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/github-api.js"></script>
+    <script src="../assets/js/admin-auth.js"></script>
+    <script src="../assets/js/admin-upload.js"></script>
+
+    <script>
+        // Initialize auth
+        const auth = initAdminAuth();
+
+        // Logout handler
+        document.getElementById('logout-btn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to logout?')) {
+                auth.logout();
+            }
+        });
+    </script>
+</body>
+
+</html>
