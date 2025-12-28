@@ -1,127 +1,149 @@
 /* 
 ====================================================================
-   THODBERRY INTELLIGENCE - STANDARD COMPONENTS
-   Clean / Accessible / Aligned
-   Updated: Dec 2025 (Refined)
+   THODBERRY INTELLIGENCE - 'VOID' COMPONENTS (FIXED)
+   Holographic / Glass / Usable
+   Updated: Dec 2025 (Reverted & Polished)
 ==================================================================== 
 */
 
-/* --- NAVBAR: STANDARD HEADER --- */
+/* --- NAVBAR: HYBRID (Glass but Stable) --- */
+/* Fixed alignment issues by moving to full-width but keeping glass aesthetic */
 .navbar {
-    width: 100%;
-    background-color: var(--bg-surface);
-    border-bottom: 1px solid var(--border-subtle);
-    height: 70px;
     position: sticky;
+    /* Switched from fixed to sticky for stability */
     top: 0;
+    width: 100%;
+    background: rgba(3, 3, 3, 0.8);
+    backdrop-filter: var(--glass);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.8rem 0;
     z-index: 1000;
-    box-shadow: var(--shadow-sm);
 }
 
 .navbar-container {
-    height: 100%;
     display: flex;
+    /* Flexbox for alignment */
     justify-content: space-between;
     align-items: center;
+    height: 100%;
 }
 
 .navbar-logo {
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--text-primary);
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    text-decoration: none !important;
+    color: white;
 }
 
 .navbar-menu {
     display: flex;
-    align-items: center;
-    gap: 2rem;
+    gap: 2.5rem;
     list-style: none;
-    margin: 0;
-    padding: 0;
+    align-items: center;
 }
 
 .navbar-link {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    text-transform: uppercase;
     color: var(--text-secondary);
-    padding: 0.5rem 0;
-    border-bottom: 2px solid transparent;
+    position: relative;
+    transition: color 0.3s;
 }
 
 .navbar-link:hover,
 .navbar-link.active {
-    color: var(--color-primary);
-    text-decoration: none;
+    color: var(--accent-primary);
 }
 
-.navbar-link.active {
-    border-bottom-color: var(--color-primary);
-}
-
-/* Theme Toggle Button */
+/* Theme Toggle (Style Only - Logic Disabled as user wants Dark only) */
 .theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--border-subtle);
     color: var(--text-primary);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: background 0.2s;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .theme-toggle:hover {
-    background-color: var(--bg-panel);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
 }
 
-/* --- HERO SECTION --- */
+
+/* --- HERO: BENTO GRID (Restored) --- */
 .hero-section {
-    padding: 5rem 0;
-    text-align: center;
-    background: var(--bg-body);
+    min-height: 80vh;
+    /* Reduced from 100vh for better scaling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 4rem 0;
+}
+
+.hero-bg-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(var(--border-subtle) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* Tighter grid */
+    mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    z-index: -1;
+    opacity: 0.5;
 }
 
 .hero-stats-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
+    gap: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    background: rgba(0, 240, 255, 0.08);
+    /* Darker tint */
+    border: 1px solid rgba(0, 240, 255, 0.2);
     border-radius: 50px;
+    font-family: var(--font-mono);
     font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--color-primary);
+    color: var(--accent-primary);
     margin-bottom: 2rem;
-    box-shadow: var(--shadow-sm);
 }
 
-/* --- CARDS & PANELS --- */
+/* --- CARDS: HOLOGRAPHIC REDUX --- */
 .card {
-    background-color: var(--bg-surface);
+    background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s, box-shadow 0.2s;
-    height: 100%;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    border-color: var(--accent-primary);
+    /* Simple glow border instead of complex gradients */
+    background: var(--bg-panel);
+    box-shadow: 0 10px 40px -10px rgba(0, 240, 255, 0.1);
 }
 
 .card h3 {
-    margin-top: 0;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
     color: var(--text-primary);
 }
 
@@ -130,134 +152,110 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    /* Restored gap for better separation */
+    margin: 2rem 0;
 }
 
 .stat-card {
-    background-color: var(--bg-surface);
-    padding: 1.5rem;
-    border-radius: var(--radius-md);
+    background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
+    padding: 2rem;
     text-align: center;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--text-secondary);
 }
 
 .stat-value {
-    font-size: 2.5rem;
+    font-family: var(--font-display);
+    font-size: 3rem;
     font-weight: 700;
-    color: var(--color-primary);
-    line-height: 1.2;
+    line-height: 1;
+    color: #fff;
+    /* Reverted to solid white for clarity */
+    margin-bottom: 0.5rem;
 }
 
 .stat-label {
-    font-size: 0.9rem;
+    font-family: var(--font-mono);
     color: var(--text-secondary);
-    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
-/* --- RTI ITEM ROW --- */
+/* --- RTI DATA CARD --- */
 .rti-card {
-    background-color: var(--bg-surface);
+    background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
-    padding: 1.25rem;
+    padding: 1.5rem;
     margin-bottom: 1rem;
-    transition: box-shadow 0.2s;
+    display: grid;
+    gap: 0.5rem;
+    transition: all 0.2s;
 }
 
 .rti-card:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--color-primary);
-}
-
-.rti-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
+    border-color: var(--text-secondary);
+    background: var(--bg-panel);
 }
 
 .rti-card-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin: 0;
-}
-
-.department-badge {
-    background-color: var(--bg-panel);
-    color: var(--text-secondary);
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--text-primary);
 }
 
 .rti-card-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 0.75rem;
 }
 
-.rti-card-disclosure {
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    background-color: var(--bg-panel);
-    padding: 0.75rem;
-    border-radius: var(--radius-sm);
-    margin-top: 0.5rem;
+.department-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #fff;
+    font-weight: 500;
 }
 
 /* --- FOOTER --- */
 .footer {
-    background-color: var(--bg-surface);
     border-top: 1px solid var(--border-subtle);
-    padding: 4rem 0 2rem;
-    margin-top: 4rem;
+    padding: 4rem 0;
+    margin-top: 5rem;
+    background: var(--bg-surface);
 }
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Better responsive wrapping */
+    gap: 3rem;
 }
 
-.footer-section h4 {
+.footer h4 {
+    font-family: var(--font-mono);
     font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary);
-    margin-bottom: 1.25rem;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 0.75rem;
+    color: #fff;
 }
 
 .footer-links a {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
 .footer-links a:hover {
-    color: var(--color-primary);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-subtle);
-    font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--accent-primary);
 }
 
 /* --- MOBILE --- */
@@ -265,30 +263,30 @@
     display: none;
     background: none;
     border: none;
-    cursor: pointer;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
+    cursor: pointer;
 }
 
 .navbar-toggle span {
     display: block;
-    width: 25px;
+    width: 28px;
     height: 2px;
-    background-color: var(--text-primary);
+    background: white;
 }
 
 @media (max-width: 768px) {
     .navbar-menu {
         display: none;
-        /* JS will toggle this */
+        /* JS Toggles this */
         position: absolute;
-        top: 70px;
+        top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--bg-surface);
-        border-bottom: 1px solid var(--border-subtle);
+        background: var(--bg-surface);
         flex-direction: column;
-        padding: 1rem 0;
+        padding: 2rem;
+        border-bottom: 1px solid var(--border-subtle);
     }
 
     .navbar-menu.active {
@@ -297,14 +295,5 @@
 
     .navbar-toggle {
         display: flex;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .hero-section h1 {
-        font-size: 2rem;
     }
 }
