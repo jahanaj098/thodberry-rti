@@ -210,6 +210,21 @@ a {
     text-align: center;
 }
 
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Reusable Force Center for stubborn elements */
+.force-center {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    max-width: 800px;
+    /* legible formatting */
+}
+
 .flex {
     display: flex;
 }
