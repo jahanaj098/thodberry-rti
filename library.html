@@ -109,11 +109,7 @@
                 <p class="text-secondary" style="font-size: 0.9rem;">
                     Showing <span id="result-count" style="color: white; font-weight: bold;">0</span> RTI(s)
                 </p>
-                <select id="sort-by" class="filter-select" style="width: auto;">
-                    <option value="newest">Sort: Newest</option>
-                    <option value="oldest">Sort: Oldest</option>
-                    <option value="relevance">Sort: Relevant</option>
-                </select>
+                <!-- Sort removed as requested -->
             </div>
 
             <div id="rti-results" class="rti-grid-results">
@@ -314,16 +310,10 @@
             displayResults();
         }
 
-        // Sort results
+        // Sort results (Default: Newest)
         function sortResults() {
-            const sortBy = document.getElementById('sort-by').value;
-
-            if (sortBy === 'newest') {
-                filteredRTIs.sort((a, b) => new Date(b.uploadDate || b.date) - new Date(a.uploadDate || a.date));
-            } else if (sortBy === 'oldest') {
-                filteredRTIs.sort((a, b) => new Date(a.uploadDate || a.date) - new Date(b.uploadDate || b.date));
-            }
-            // 'relevance' keeps the current order
+            // Always sort by newest first
+            filteredRTIs.sort((a, b) => new Date(b.uploadDate || b.date) - new Date(a.uploadDate || a.date));
         }
 
         // Display results
@@ -390,11 +380,11 @@
         document.getElementById('filter-authority').addEventListener('change', filterRTIs);
         document.getElementById('filter-state').addEventListener('change', filterRTIs);
         document.getElementById('filter-year').addEventListener('change', filterRTIs);
-        document.getElementById('sort-by').addEventListener('change', () => {
-            displayedCount = 0;
-            sortResults();
-            displayResults();
-        });
+
+        // Sort results (Default: Newest)
+        function sortResults() {
+            filteredRTIs.sort((a, b) => new Date(b.uploadDate || b.date) - new Date(a.uploadDate || a.date));
+        }
 
         document.getElementById('reset-filters').addEventListener('click', () => {
             document.getElementById('search-input').value = '';
