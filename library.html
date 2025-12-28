@@ -343,7 +343,7 @@
 
             if (filteredRTIs.length === 0) {
                 resultsContainer.innerHTML = `
-          <div class="card text-center">
+          <div class="card text-center" style="grid-column: 1 / -1;">
             <h3>No RTIs Found</h3>
             <p class="text-secondary">Try adjusting your search or filters</p>
           </div>
@@ -357,8 +357,13 @@
             displayedCount = itemsToShow.length;
 
             // Render RTI cards
-            const html = itemsToShow.map(rti => `
-        <div class="rti-card">
+            const html = itemsToShow.map((rti, index) => {
+                // Escape quotes for JS function calls
+                const safeSubject = (rti.subject || "").replace(/'/g, "\\'");
+                const safeUrl = (rti.documentUrl || "");
+
+                return `
+        <div class="rti-card" data-rti-id="${rti.id}">
           <div class="rti-card-header">
             <div>
               <h3 class="rti-card-title">${rti.subject}</h3>
@@ -373,17 +378,22 @@
             ${rti.uploadedBy ? `<span>👤 ${rti.uploadedBy}</span>` : ''}
           </div>
           
-          ${rti.disclosure ? `<p class="rti-card-disclosure">${rti.disclosure}</p>` : ''}
+          ${rti.disclosure ? `
+                <div class="disclosure-container">
+                    <p class="rti-card-disclosure text-line-clamp" id="disc-${rti.id}-${index}">${rti.disclosure}</p>
+                    <button class="read-more-btn" onclick="toggleDisclosure('disc-${rti.id}-${index}')">Read More</button>
+                </div>
+            ` : ''}
           
           <div class="rti-card-tags">
-            ${rti.tags ? rti.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+            ${(rti.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
           
           <div class="flex gap-3 mt-4">
-            ${rti.documentUrl ? `<button onclick="openDocument('${rti.documentUrl}', '${rti.subject.replace(/'/g, "\\'")}')" class="btn btn-sm btn-primary">📄 View Document</button>` : ''}
+            ${safeUrl ? `<button onclick="openDocument('${safeUrl}', '${safeSubject}')" class="btn btn-sm btn-primary">📄 View Document</button>` : ''}
           </div>
         </div>
-      `).join('');
+      `}).join('');
 
             resultsContainer.innerHTML = html;
 
