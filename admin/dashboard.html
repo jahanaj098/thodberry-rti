@@ -109,6 +109,33 @@
             </div>
         </div>
 
+        <!-- Pending Submissions (Queue) -->
+        <div class="card mb-8" style="border: 1px solid var(--accent-primary);">
+            <div class="card-header flex justify-between items-center">
+                <h3>🔔 Pending Submissions</h3>
+                <span id="pending-count" class="badge badge-primary">0</span>
+            </div>
+            <p class="text-secondary mb-4">Review and approve public RTI submissions.</p>
+
+            <div class="table-container">
+                <table class="w-full text-left" style="border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid var(--border-subtle); color: var(--text-muted);">
+                            <th class="p-3">Subject</th>
+                            <th class="p-3">Department</th>
+                            <th class="p-3">Submitted</th>
+                            <th class="p-3 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pending-list">
+                        <tr>
+                            <td colspan="4" class="p-6 text-center text-muted">No pending submissions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Recent RTIs -->
         <div class="card">
             <div class="card-header">
@@ -228,6 +255,110 @@
         }
 
         loadDashboardData();
+        loadPendingSubmissions();
+
+        // Load Pending Submissions from LocalStorage
+        function loadPendingSubmissions() {
+            const submissions = JSON.parse(localStorage.getItem('rti_submissions') || '[]');
+            const list = document.getElementById('pending-list');
+            const count = document.getElementById('pending-count');
+
+            count.textContent = submissions.length;
+
+            if (submissions.length === 0) {
+                list.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-muted">No pending submissions</td></tr>';
+                return;
+            }
+
+            list.innerHTML = submissions.map(sub => `
+                <tr style="border-bottom: 1px solid var(--border-subtle);">
+                    <td class="p-3 font-semibold">${sub.subject}</td>
+                    <td class="p-3"><span class="department-badge">${sub.department}</span></td>
+                    <td class="p-3 text-sm text-muted">${new Date(sub.submittedAt).toLocaleDateString()}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="approveSubmission('${sub.id}')" class="btn btn-sm btn-primary" style="margin-right: 0.5rem;">✅ Approve</button>
+                        <button onclick="rejectSubmission('${sub.id}')" class="btn btn-sm btn-outline" style="color: var(--color-error); border-color: var(--color-error);">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Reject Submission
+        window.rejectSubmission = function (id) {
+            if (!confirm('Delete this submission?')) return;
+            const submissions = JSON.parse(localStorage.getItem('rti_submissions') || '[]');
+            const newSubs = submissions.filter(s => s.id !== id);
+            localStorage.setItem('rti_submissions', JSON.stringify(newSubs));
+            loadPendingSubmissions();
+            showToast('Submission rejected', 'info');
+        };
+
+        // Approve Submission
+        window.approveSubmission = async function (id) {
+            const submissions = JSON.parse(localStorage.getItem('rti_submissions') || '[]');
+            const sub = submissions.find(s => s.id === id);
+
+            if (!sub) return;
+
+            if (!confirm(`Approve and upload "${sub.subject}" to GitHub?`)) return;
+
+            // Show loading
+            showToast('Approving & Uploading...', 'info');
+
+            try {
+                // 1. Upload Document
+                const rtiId = githubAPI.generateId();
+                const fileExt = sub.fileName.split('.').pop();
+                const documentPath = `${GITHUB_CONFIG.documentsPath}${rtiId}.${fileExt}`;
+
+                await githubAPI.uploadBinaryFile(
+                    documentPath,
+                    sub.fileContent, // Base64
+                    `Upload User RTI: ${sub.subject}`
+                );
+
+                // 2. Add to Data
+                const rtiEntry = {
+                    id: rtiId,
+                    department: sub.department,
+                    authority: sub['authority-type'],
+                    state: sub.state || null,
+                    subject: sub.subject,
+                    year: sub['reply-date'] ? new Date(sub['reply-date']).getFullYear() : new Date().getFullYear(),
+                    date: sub['reply-date'] || null,
+                    tags: [],
+                    disclosure: sub['key-disclosure'] || '',
+                    documentUrl: `/${documentPath}`,
+                    uploadedBy: sub['contributor-name'] || 'Anonymous User',
+                    uploadDate: new Date().toISOString()
+                };
+
+                const rtiDataFile = await githubAPI.getFile(GITHUB_CONFIG.dataPath);
+                let rtiData = rtiDataFile ? JSON.parse(rtiDataFile.content) : { rtis: [] };
+
+                rtiData.rtis.unshift(rtiEntry);
+
+                const updatedContent = JSON.stringify(rtiData, null, 2);
+
+                if (rtiDataFile && rtiDataFile.sha) {
+                    await githubAPI.updateFile(GITHUB_CONFIG.dataPath, updatedContent, rtiDataFile.sha, `Add User RTI: ${sub.subject}`);
+                } else {
+                    await githubAPI.uploadFile(GITHUB_CONFIG.dataPath, updatedContent, `Add User RTI: ${sub.subject}`);
+                }
+
+                // 3. Remove from Queue
+                const newSubs = submissions.filter(s => s.id !== id);
+                localStorage.setItem('rti_submissions', JSON.stringify(newSubs));
+
+                showToast('Approved & Published!', 'success');
+                loadPendingSubmissions();
+                loadDashboardData();
+
+            } catch (e) {
+                console.error(e);
+                showToast('Error approving: ' + e.message, 'error');
+            }
+        };
     </script>
 </body>
 
