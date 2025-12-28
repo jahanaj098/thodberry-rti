@@ -81,7 +81,10 @@
                     <h1>Manage RTI Entries</h1>
                     <p class="text-secondary">View, edit, and delete RTI entries</p>
                 </div>
-                <a href="upload.html" class="btn btn-primary">+ Add New RTI</a>
+                <div class="flex gap-3">
+                    <button id="toggle-bin" class="btn btn-outline" onclick="toggleBinView()">🗑️ Recycle Bin</button>
+                    <a href="upload.html" class="btn btn-primary">+ Add New RTI</a>
+                </div>
             </div>
         </div>
 
@@ -116,6 +119,7 @@
         const auth = initAdminAuth();
         const githubAPI = new GitHubAPI();
         let allRTIs = [];
+        let isBinView = false;
 
         // Logout handler
         document.getElementById('logout-btn').addEventListener('click', function () {
@@ -123,6 +127,22 @@
                 auth.logout();
             }
         });
+
+        // Toggle Bin View
+        window.toggleBinView = function () {
+            isBinView = !isBinView;
+            const btn = document.getElementById('toggle-bin');
+            if (isBinView) {
+                btn.classList.add('btn-primary');
+                btn.classList.remove('btn-outline');
+                btn.textContent = '⬅️ Back to Active';
+            } else {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline');
+                btn.textContent = '🗑️ Recycle Bin';
+            }
+            filterRTIs();
+        }
 
         // Load RTI data
         async function loadRTIs() {
@@ -143,7 +163,7 @@
                 const rtiData = JSON.parse(rtiDataFile.content);
                 allRTIs = rtiData.rtis || [];
 
-                displayRTIs(allRTIs);
+                filterRTIs(); // Initial display
 
             } catch (error) {
                 console.error('Error loading RTIs:', error);
@@ -158,20 +178,26 @@
 
         // Display RTI list
         function displayRTIs(rtis) {
+            const listContainer = document.getElementById('rti-list');
+
             if (rtis.length === 0) {
-                document.getElementById('rti-list').innerHTML = `
+                listContainer.innerHTML = `
           <div class="card text-center">
-            <p class="text-muted">No RTIs match your search</p>
+            <p class="text-muted">No ${isBinView ? 'deleted' : 'active'} RTIs found</p>
           </div>
         `;
                 return;
             }
 
-            const html = rtis.map((rti, index) => `
-        <div class="card mb-4" data-rti-id="${rti.id}">
+            const html = rtis.map((rti) => {
+                // Determine original index for badge (approximate)
+                const originalIndex = allRTIs.findIndex(r => r.id === rti.id);
+
+                return `
+        <div class="card mb-4" data-rti-id="${rti.id}" style="${isBinView ? 'border: 1px dashed var(--color-error);' : ''}">
           <div class="rti-card-header">
             <div>
-              <span class="badge badge-primary">#${allRTIs.findIndex(r => r.id === rti.id) + 1}</span>
+              <span class="badge ${isBinView ? 'badge-error' : 'badge-primary'}">${isBinView ? 'DELETED' : '#' + (originalIndex + 1)}</span>
               <h3 class="rti-card-title mt-2">${rti.subject}</h3>
             </div>
             <span class="department-badge">${rti.department}</span>
@@ -187,19 +213,22 @@
           ${rti.disclosure ? `<p class="rti-card-disclosure">${rti.disclosure}</p>` : ''}
           
           <div class="rti-card-tags">
-            ${rti.tags ? rti.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+            ${(rti.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
           
           <div class="rti-actions">
-            <a href="${rti.documentUrl}" target="_blank" class="btn btn-sm btn-outline">📄 View Document</a>
-            <button onclick="deleteRTI('${rti.id}')" class="btn btn-sm" style="background: var(--color-error); color: white;">
-              🗑️ Delete
-            </button>
+            ${!isBinView ? `
+                <a href="${rti.documentUrl}" target="_blank" class="btn btn-sm btn-outline">📄 View Document</a>
+                <button onclick="softDeleteRTI('${rti.id}')" class="btn btn-sm" style="background: var(--color-error); color: white;">🗑️ Delete</button>
+            ` : `
+                <button onclick="restoreRTI('${rti.id}')" class="btn btn-sm btn-outline">♻️ Restore</button>
+                <button onclick="permanentDeleteRTI('${rti.id}')" class="btn btn-sm btn-primary" style="background: darkred; border-color: darkred;">❌ Delete Forever</button>
+            `}
           </div>
         </div>
-      `).join('');
+      `}).join('');
 
-            document.getElementById('rti-list').innerHTML = html;
+            listContainer.innerHTML = html;
         }
 
         // Search functionality
@@ -215,9 +244,13 @@
             const searchTerm = document.getElementById('search-box').value.toLowerCase();
             const authorityFilter = document.getElementById('filter-authority').value;
 
-            let filtered = allRTIs;
+            // 1. Filter by Status (Bin vs Active)
+            let filtered = allRTIs.filter(rti => {
+                const isDeleted = rti.status === 'deleted';
+                return isBinView ? isDeleted : !isDeleted;
+            });
 
-            // Apply search
+            // 2. Apply search
             if (searchTerm) {
                 filtered = filtered.filter(rti => {
                     return (
@@ -229,7 +262,7 @@
                 });
             }
 
-            // Apply authority filter
+            // 3. Apply authority filter
             if (authorityFilter) {
                 filtered = filtered.filter(rti => rti.authority === authorityFilter);
             }
@@ -237,55 +270,82 @@
             displayRTIs(filtered);
         }
 
-        // Delete RTI
-        async function deleteRTI(rtiId) {
-            if (!confirm('Are you sure you want to delete this RTI? This action cannot be undone.')) {
-                return;
-            }
+        // Soft Delete RTI
+        async function softDeleteRTI(rtiId) {
+            if (!confirm('Move this RTI to the Recycle Bin?')) return;
 
             try {
-                showToast('Deleting RTI...', 'info');
+                showToast('Moving to Bin...', 'info');
+                await updateRTIStatus(rtiId, 'deleted');
+                showToast('Moved to Recycle Bin', 'success');
+            } catch (error) {
+                console.error('Delete error:', error);
+                showToast('Error: ' + error.message, 'error');
+            }
+        }
 
-                // Get current data
+        // Restore RTI
+        async function restoreRTI(rtiId) {
+            try {
+                showToast('Restoring...', 'info');
+                await updateRTIStatus(rtiId, 'active'); // or just remove status
+                showToast('Restored successfully', 'success');
+            } catch (error) {
+                console.error('Restore error:', error);
+                showToast('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Helper to update status
+        async function updateRTIStatus(rtiId, status) {
+            const rtiDataFile = await githubAPI.getFile(GITHUB_CONFIG.dataPath);
+            const rtiData = JSON.parse(rtiDataFile.content);
+
+            const rti = rtiData.rtis.find(r => r.id === rtiId);
+            if (!rti) throw new Error('RTI not found');
+
+            if (status === 'active') {
+                delete rti.status;
+            } else {
+                rti.status = status;
+            }
+
+            rtiData.metadata.lastUpdated = new Date().toISOString();
+
+            const updatedContent = JSON.stringify(rtiData, null, 2);
+            await githubAPI.updateFile(GITHUB_CONFIG.dataPath, updatedContent, rtiDataFile.sha, `Update RTI status: ${status}`);
+
+            // Reload local data
+            await loadRTIs();
+        }
+
+        // Permanent Delete
+        async function permanentDeleteRTI(rtiId) {
+            if (!confirm('PERMANENTLY DELETE? This cannot be undone.')) return;
+
+            try {
+                showToast('Deleting permanently...', 'info');
+
                 const rtiDataFile = await githubAPI.getFile(GITHUB_CONFIG.dataPath);
                 const rtiData = JSON.parse(rtiDataFile.content);
 
-                // Find and remove the RTI
-                const rtiIndex = rtiData.rtis.findIndex(r => r.id === rtiId);
-                if (rtiIndex === -1) {
-                    throw new Error('RTI not found');
-                }
+                const index = rtiData.rtis.findIndex(r => r.id === rtiId);
+                if (index === -1) throw new Error('RTI not found');
 
-                const rti = rtiData.rtis[rtiIndex];
-                rtiData.rtis.splice(rtiIndex, 1);
-                rtiData.metadata.totalCount = rtiData.rtis.length;
-                rtiData.metadata.lastUpdated = new Date().toISOString();
+                const rti = rtiData.rtis[index];
+                rtiData.rtis.splice(index, 1);
 
-                // Update data file
                 const updatedContent = JSON.stringify(rtiData, null, 2);
-                await githubAPI.updateFile(
-                    GITHUB_CONFIG.dataPath,
-                    updatedContent,
-                    rtiDataFile.sha,
-                    `Delete RTI: ${rti.subject}`
-                );
+                await githubAPI.updateFile(GITHUB_CONFIG.dataPath, updatedContent, rtiDataFile.sha, `Permanent Delete: ${rti.subject}`);
 
-                // Note: We're not deleting the actual document file
-                // as it requires additional SHA lookup and might be referenced elsewhere
-
-                showToast('RTI deleted successfully', 'success');
-
-                // Reload data
+                showToast('Deleted permanently', 'success');
                 await loadRTIs();
 
             } catch (error) {
                 console.error('Delete error:', error);
-                showToast('Failed to delete RTI: ' + error.message, 'error');
+                showToast('Error: ' + error.message, 'error');
             }
         }
-
-        // Make deleteRTI globally accessible
-        window.deleteRTI = deleteRTI;
 
         // Load RTIs on page load
         loadRTIs();
