@@ -197,6 +197,95 @@
     letter-spacing: 0.1em;
 }
 
+/* --- LIBRARY SEARCH & FILTER (PREMIUM) --- */
+.library-search-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-input-wrapper {
+    position: relative;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    padding-right: 3rem;
+    background: #111;
+    border: 1px solid var(--border-subtle);
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: white;
+    transition: all 0.3s;
+}
+
+.search-input-wrapper input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: #000;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.filter-select {
+    padding: 0.6rem 1.2rem;
+    background: #111;
+    border: 1px solid var(--border-subtle);
+    border-radius: 50px;
+    /* Pillow shape for modern look */
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: var(--accent-primary);
+    color: white;
+    outline: none;
+}
+
+/* --- RTI RESULTS GRID (4 Columns) --- */
+.rti-grid-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 Columns on large screens */
+    gap: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    .rti-grid-results {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .rti-grid-results {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .rti-grid-results {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- RTI DATA CARD --- */
 .rti-card {
     background: var(--bg-surface);
