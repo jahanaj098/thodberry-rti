@@ -249,6 +249,11 @@ a {
     color: var(--text-secondary);
 }
 
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
 /* --- GRID SYSTEM --- */
 .grid {
     display: grid;
