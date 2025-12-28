@@ -228,7 +228,7 @@ function handleFormSubmission() {
             localStorage.setItem('rti_submissions', JSON.stringify(submissions));
 
             // Show success message
-            showToast('Submission received! Status: Submitted for Review', 'success');
+            showToast('Submitted successfully! Waiting for approval.', 'success');
 
             // Reset form
             form.reset();
