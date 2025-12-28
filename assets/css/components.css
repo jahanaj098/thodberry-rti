@@ -478,3 +478,28 @@
     height: 100%;
     border: none;
 }
+
+/* --- TEXT TRUNCATION --- */
+.text-line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* Limit to 1 line as requested */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-line-clamp.expanded {
+    -webkit-line-clamp: unset;
+}
+
+.read-more-btn {
+    background: none;
+    border: none;
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 0.2rem;
+    text-decoration: underline;
+}
