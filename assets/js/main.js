@@ -152,10 +152,8 @@ function showToast(message, type = 'info') {
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `
-    <div class="flex items-center gap-3">
-      <span>${getToastIcon(type)}</span>
-      <span>${message}</span>
-    </div>
+    <div style="font-size: 2rem; margin-bottom: 0.5rem;">${getToastIcon(type)}</div>
+    <div>${message}</div>
   `;
 
     document.body.appendChild(toast);
