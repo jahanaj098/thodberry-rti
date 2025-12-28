@@ -175,6 +175,19 @@
         </div>
     </footer>
 
+    <!-- Document Modal -->
+    <div id="doc-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" class="modal-title">Document Viewer</h3>
+                <button id="modal-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="doc-frame" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="config.js"></script>
     <script src="assets/js/main.js"></script>
@@ -184,6 +197,33 @@
         let filteredRTIs = [];
         let displayedCount = 0;
         const ITEMS_PER_PAGE = 20;
+
+        // Modal Elements
+        const modal = document.getElementById('doc-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalFrame = document.getElementById('doc-frame');
+        const modalClose = document.getElementById('modal-close');
+
+        // Close Modal
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            modalFrame.src = ''; // Clear source to stop playing/loading
+        });
+
+        // Close on click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                modalFrame.src = '';
+            }
+        });
+
+        // Open Modal
+        function openDocument(url, title) {
+            modalTitle.textContent = title || 'Document Viewer';
+            modalFrame.src = url;
+            modal.classList.add('active');
+        }
 
         // Load RTI data
         async function loadRTIData() {
@@ -205,7 +245,7 @@
             } catch (error) {
                 console.error('Error loading RTI data:', error);
                 document.getElementById('rti-results').innerHTML = `
-          <div class="card text-center">
+          <div class="card text-center" style="grid-column: 1 / -1;">
             <h3>No RTI Data Available Yet</h3>
             <p class="text-secondary mb-4">The library is being built. Check back soon or submit your own RTI reply!</p>
             <a href="submit.html" class="btn btn-primary">Submit RTI Reply</a>
@@ -213,6 +253,7 @@
         `;
             }
         }
+
 
         // Populate filter dropdowns
         function populateFilters() {
@@ -329,7 +370,7 @@
           </div>
           
           <div class="flex gap-3 mt-4">
-            ${rti.documentUrl ? `<a href="${rti.documentUrl}" target="_blank" class="btn btn-sm btn-primary">📄 View Document</a>` : ''}
+            ${rti.documentUrl ? `<button onclick="openDocument('${rti.documentUrl}', '${rti.subject.replace(/'/g, "\\'")}')" class="btn btn-sm btn-primary">📄 View Document</button>` : ''}
           </div>
         </div>
       `).join('');
