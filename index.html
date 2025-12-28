@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thodberry RTI Intelligence - A public, searchable platform that organizes Right to Information (RTI) replies from across India into structured, easy-to-understand insights.">
+  <meta name="keywords" content="RTI, Right to Information, India, transparency, governance, public information">
+  <meta name="author" content="Thodberry">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Thodberry RTI Intelligence">
+  <meta property="og:description" content="Public knowledge platform that preserves and organizes RTI disclosures">
+  <meta property="og:type" content="website">
+  
+  <title>Thodberry RTI Intelligence | Public RTI Knowledge Platform</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <span>📜</span>
+        <span>Thodberry RTI</span>
+      </a>
+      
+      <ul class="navbar-menu">
+        <li><a href="index.html" class="navbar-link active">Home</a></li>
+        <li><a href="library.html" class="navbar-link">RTI Library</a></li>
+        <li><a href="insights.html" class="navbar-link">Insights</a></li>
+        <li><a href="submit.html" class="navbar-link">Submit RTI</a></li>
+        <li><a href="about.html" class="navbar-link">About</a></li>
+        <li>
+          <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </li>
+      </ul>
+      
+      <button class="navbar-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Public Intelligence from RTI Disclosures</h1>
+        <p>
+          A neutral, searchable platform that preserves and organizes Right to Information replies 
+          so that valuable government disclosures don't disappear after a single request.
+        </p>
+        <div class="flex justify-center gap-4 flex-wrap">
+          <a href="library.html" class="btn btn-primary btn-lg">Explore RTI Library</a>
+          <a href="submit.html" class="btn btn-outline btn-lg">Submit RTI Reply</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics -->
+  <section class="section bg-alt">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="total-rtis">0</div>
+          <div class="stat-label">RTI Replies Archived</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-departments">0</div>
+          <div class="stat-label">Departments Covered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-states">0</div>
+          <div class="stat-label">States & UTs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="total-disclosures">0</div>
+          <div class="stat-label">Key Disclosures</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-8">
+        <h2>Why Thodberry RTI Intelligence?</h2>
+        <p class="text-lg text-secondary">Turning RTI documents into public intelligence</p>
+      </div>
+      
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+            <h3 class="card-title">Searchable Archive</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              Search across thousands of RTI replies by department, topic, state, or keyword. 
+              No more filing duplicate RTIs for information that's already been disclosed.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+            <h3 class="card-title">Department Dashboards</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              Track RTI patterns by department. See disclosure rates, common topics, 
+              and transparency trends across government bodies.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">💡</div>
+            <h3 class="card-title">Curated Insights</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              Editorial summaries highlight important disclosures, reveal patterns, 
+              and connect the dots between related RTI replies.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+            <h3 class="card-title">100% Legal & Public</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              We only publish RTI replies already disclosed under the RTI Act, 2005. 
+              All content is legally obtained, properly cited, and sanitized.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
+            <h3 class="card-title">Community-Powered</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              RTI activists, journalists, and citizens contribute replies. 
+              Together, we build a permanent public knowledge base.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⚖️</div>
+            <h3 class="card-title">Neutral & Non-Partisan</h3>
+          </div>
+          <div class="card-body">
+            <p>
+              Not activism. Not opinion. Just facts. We preserve government disclosures 
+              without editorial bias or political agenda.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Uses This -->
+  <section class="section bg-alt">
+    <div class="container">
+      <div class="text-center mb-8">
+        <h2>Who Benefits from RTI Intelligence?</h2>
+        <p class="text-lg text-secondary">Built for researchers, journalists, activists, and citizens</p>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card card-glass">
+          <h4>📰 Journalists & Media</h4>
+          <p>Access verified government data for investigative stories. Discover patterns across departments and find story leads.</p>
+        </div>
+        
+        <div class="card card-glass">
+          <h4>⚖️ Lawyers & Researchers</h4>
+          <p>Reference cited RTI disclosures in legal cases and academic research. Build evidence-based arguments.</p>
+        </div>
+        
+        <div class="card card-glass">
+          <h4>📢 RTI Activists & NGOs</h4>
+          <p>Avoid duplicate RTI requests. Share successful RTI replies with the community. Collaborate across organizations.</p>
+        </div>
+        
+        <div class="card card-glass">
+          <h4>👥 Citizens & Students</h4>
+          <p>Learn what information is available through RTI. Understand government functioning through real disclosures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section">
+    <div class="container container-narrow">
+      <div class="text-center mb-8">
+        <h2>How Thodberry RTI Works</h2>
+      </div>
+      
+      <div class="flex flex-col gap-6">
+        <div class="flex gap-6 items-start">
+          <div class="flex-shrink-0 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl">1</div>
+          <div>
+            <h4>Contributors Submit RTI Replies</h4>
+            <p class="text-secondary">RTI applicants voluntarily upload their replies through our submission form. All documents are verified for authenticity.</p>
+          </div>
+        </div>
+        
+        <div class="flex gap-6 items-start">
+          <div class="flex-shrink-0 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl">2</div>
+          <div>
+            <h4>We Sanitize & Organize</h4>
+            <p class="text-secondary">Personal information is masked. Key disclosures are extracted and summarized. Metadata is structured for easy searching.</p>
+          </div>
+        </div>
+        
+        <div class="flex gap-6 items-start">
+          <div class="flex-shrink-0 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl">3</div>
+          <div>
+            <h4>Public Access Forever</h4>
+            <p class="text-secondary">Searchable, downloadable, and citable. RTI disclosures become permanent public intelligence that anyone can use.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-8">
+        <a href="submit.html" class="btn btn-accent btn-lg">Contribute Your RTI Reply</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section bg-alt">
+    <div class="container text-center">
+      <h2 class="mb-6">Join the Movement for Transparency</h2>
+      <p class="text-xl text-secondary mb-8" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+        Every RTI reply you share strengthens public accountability. 
+        Help us build India's most comprehensive RTI knowledge base.
+      </p>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <a href="library.html" class="btn btn-primary btn-lg">Browse RTI Library</a>
+        <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>Thodberry RTI Intelligence</h4>
+          <p class="text-secondary">
+            A neutral, public knowledge platform that preserves and organizes RTI disclosures 
+            so that valuable information does not disappear after a single request.
+          </p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="library.html">RTI Library</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="submit.html">Submit RTI</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="about.html#disclaimer">Disclaimer</a></li>
+            <li><a href="about.html#editorial-policy">Editorial Policy</a></li>
+            <li><a href="about.html#data-ethics">Data Ethics</a></li>
+            <li><a href="about.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="https://rtionline.gov.in" target="_blank" rel="noopener">RTI Online Portal</a></li>
+            <li><a href="https://rti.gov.in" target="_blank" rel="noopener">RTI Act Information</a></li>
+            <li><a href="admin/login.html">Admin Login</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 Thodberry. All rights reserved. | This platform republishes RTI replies already disclosed under the RTI Act, 2005.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="assets/js/main.js"></script>
+  
+  <!-- Load stats from data -->
+  <script>
+    async function loadStats() {
+      try {
+        const response = await fetch('data/rti-data.json');
+        const data = await response.json();
+        
+        const totalRTIs = data.rtis.length;
+        const departments = new Set(data.rtis.map(r => r.department));
+        const states = new Set(data.rtis.map(r => r.state));
+        
+        animateValue('total-rtis', 0, totalRTIs, 2000);
+        animateValue('total-departments', 0, departments.size, 2000);
+        animateValue('total-states', 0, states.size, 2000);
+        animateValue('total-disclosures', 0, totalRTIs, 2000);
+      } catch (error) {
+        console.log('Stats will be available once RTI data is added');
+      }
+    }
+    
+    function animateValue(id, start, end, duration) {
+      const element = document.getElementById(id);
+      if (!element) return;
+      
+      const range = end - start;
+      const increment = range / (duration / 16);
+      let current = start;
+      
+      const timer = setInterval(function() {
+        current += increment;
+        if (current >= end) {
+          element.textContent = end;
+          clearInterval(timer);
+        } else {
+          element.textContent = Math.floor(current);
+        }
+      }, 16);
+    }
+    
+    loadStats();
+  </script>
+</body>
+</html>

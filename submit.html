@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Submit your RTI reply to Thodberry RTI Intelligence. Help build India's public RTI knowledge base.">
+    <title>Submit RTI Reply | Thodberry RTI Intelligence</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <span>📜</span>
+                <span>Thodberry RTI</span>
+            </a>
+
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link">Home</a></li>
+                <li><a href="library.html" class="navbar-link">RTI Library</a></li>
+                <li><a href="insights.html" class="navbar-link">Insights</a></li>
+                <li><a href="submit.html" class="navbar-link active">Submit RTI</a></li>
+                <li><a href="about.html" class="navbar-link">About</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                </li>
+            </ul>
+
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section" style="padding-top: calc(var(--space-12) + 60px);">
+        <div class="container container-narrow">
+            <div class="text-center mb-8">
+                <h1>Submit Your RTI Reply</h1>
+                <p class="text-xl text-secondary">
+                    Help build India's public RTI knowledge base. Share your RTI reply with the community.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guidelines -->
+    <section class="section">
+        <div class="container container-narrow">
+            <div class="card"
+                style="background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 168, 150, 0.05) 100%); border: 2px solid var(--color-primary);">
+                <h3>📋 Submission Guidelines</h3>
+                <p>Before submitting, please ensure:</p>
+                <ul style="list-style: disc; margin-left: var(--space-6); margin-bottom: var(--space-4);">
+                    <li>Your RTI reply was <strong>legally obtained</strong> under the RTI Act, 2005</li>
+                    <li>The document is in <strong>PDF or image format</strong> (JPG, PNG)</li>
+                    <li>File size is <strong>less than 10MB</strong></li>
+                    <li>You have the right to share this information publicly</li>
+                    <li>No personal information (phone, address) of individuals is visible</li>
+                </ul>
+                <p class="text-sm text-muted mt-4">
+                    Your submission will be reviewed by our team before publication. We may mask any personal
+                    information found in the document.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Submission Form -->
+    <section class="section">
+        <div class="container container-narrow">
+            <form id="rti-submit-form" class="card">
+                <h2 class="mb-6">RTI Reply Information</h2>
+
+                <!-- File Upload -->
+                <div class="form-group">
+                    <label class="form-label" for="rti-file">
+                        RTI Reply Document <span style="color: var(--color-error);">*</span>
+                    </label>
+                    <input type="file" id="rti-file" name="rti-file" accept=".pdf,.jpg,.jpeg,.png" required
+                        class="form-input">
+                    <span class="form-help">Upload your RTI reply (PDF, JPG, or PNG, max 10MB)</span>
+                    <div class="file-info hidden mt-3"></div>
+                </div>
+
+                <!-- Department -->
+                <div class="form-group">
+                    <label class="form-label" for="department">
+                        Department/Authority <span style="color: var(--color-error);">*</span>
+                    </label>
+                    <input type="text" id="department" name="department"
+                        placeholder="e.g., Kerala Health Department, Ministry of Education" required class="form-input">
+                    <span class="form-help">Name of the government department or authority</span>
+                </div>
+
+                <!-- State/Central -->
+                <div class="form-group">
+                    <label class="form-label" for="authority-type">
+                        Authority Level <span style="color: var(--color-error);">*</span>
+                    </label>
+                    <select id="authority-type" name="authority-type" required class="form-select">
+                        <option value="">Select authority level</option>
+                        <option value="Central">Central Government</option>
+                        <option value="State">State Government</option>
+                        <option value="Local">Local Body</option>
+                    </select>
+                </div>
+
+                <!-- State (if applicable) -->
+                <div class="form-group">
+                    <label class="form-label" for="state">
+                        State/UT
+                    </label>
+                    <select id="state" name="state" class="form-select">
+                        <option value="">Select state (if applicable)</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Delhi">Delhi (NCT)</option>
+                        <option value="Puducherry">Puducherry</option>
+                    </select>
+                </div>
+
+                <!-- Subject/Topic -->
+                <div class="form-group">
+                    <label class="form-label" for="subject">
+                        Subject/Topic <span style="color: var(--color-error);">*</span>
+                    </label>
+                    <input type="text" id="subject" name="subject"
+                        placeholder="e.g., Hospital fire safety audits, School infrastructure" required
+                        class="form-input">
+                    <span class="form-help">Brief description of what the RTI was about</span>
+                </div>
+
+                <!-- Date of Reply -->
+                <div class="form-group">
+                    <label class="form-label" for="reply-date">
+                        Date of Reply
+                    </label>
+                    <input type="date" id="reply-date" name="reply-date" class="form-input">
+                    <span class="form-help">When did you receive this RTI reply?</span>
+                </div>
+
+                <!-- Key Disclosure (Optional) -->
+                <div class="form-group">
+                    <label class="form-label" for="key-disclosure">
+                        Key Disclosure (Optional)
+                    </label>
+                    <textarea id="key-disclosure" name="key-disclosure"
+                        placeholder="Summarize the main finding or disclosure in 1-2 sentences" class="form-textarea"
+                        rows="4"></textarea>
+                    <span class="form-help">Help others discover this RTI by summarizing the key finding</span>
+                </div>
+
+                <!-- Contributor Name -->
+                <div class="form-group">
+                    <label class="form-label" for="contributor-name">
+                        Your Name (Optional)
+                    </label>
+                    <input type="text" id="contributor-name" name="contributor-name"
+                        placeholder="Your name or organization" class="form-input">
+                    <span class="form-help">We'll credit you for this contribution (leave blank for anonymous)</span>
+                </div>
+
+                <!-- Contact Email -->
+                <div class="form-group">
+                    <label class="form-label" for="email">
+                        Email Address <span style="color: var(--color-error);">*</span>
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required
+                        class="form-input">
+                    <span class="form-help">We'll contact you if we need clarification (not published)</span>
+                </div>
+
+                <!-- Confirmation Checkbox -->
+                <div class="form-group">
+                    <label style="display: flex; align-items: start; gap: var(--space-3); cursor: pointer;">
+                        <input type="checkbox" id="confirm-legal" name="confirm-legal" required
+                            style="margin-top: 4px; width: 20px; height: 20px; cursor: pointer;">
+                        <span>
+                            I confirm that this RTI reply was <strong>legally obtained under the RTI Act, 2005</strong>,
+                            and I have the right to share this information publicly.
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex gap-4 mt-8">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        📤 Submit RTI Reply
+                    </button>
+                    <button type="reset" class="btn btn-outline">
+                        Reset Form
+                    </button>
+                </div>
+
+                <p class="text-sm text-muted mt-6">
+                    By submitting, you agree to our <a href="about.html#editorial-policy">Editorial Policy</a>
+                    and <a href="about.html#data-ethics">Data Ethics</a> guidelines.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Why Contribute -->
+    <section class="section bg-alt">
+        <div class="container container-narrow">
+            <div class="card">
+                <h2>Why Contribute Your RTI Reply?</h2>
+                <div class="grid grid-2 gap-6 mt-6">
+                    <div>
+                        <h4>🌟 Help Others</h4>
+                        <p class="text-sm text-secondary">Your RTI could answer someone else's question. Prevent
+                            duplicate requests and save time for everyone.</p>
+                    </div>
+                    <div>
+                        <h4>📊 Build Trends</h4>
+                        <p class="text-sm text-secondary">Your contribution helps identify patterns across departments
+                            and strengthens public accountability.</p>
+                    </div>
+                    <div>
+                        <h4>💪 Strengthen Transparency</h4>
+                        <p class="text-sm text-secondary">Every RTI shared makes government information more accessible
+                            and permanent.</p>
+                    </div>
+                    <div>
+                        <h4>🏆 Get Credited</h4>
+                        <p class="text-sm text-secondary">We'll acknowledge your contribution (unless you prefer to
+                            remain anonymous).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Thodberry RTI Intelligence</h4>
+                    <p class="text-secondary">
+                        A neutral, public knowledge platform that preserves and organizes RTI disclosures.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="library.html">RTI Library</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="submit.html">Submit RTI</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html#disclaimer">Disclaimer</a></li>
+                        <li><a href="about.html#editorial-policy">Editorial Policy</a></li>
+                        <li><a href="about.html#data-ethics">Data Ethics</a></li>
+                        <li><a href="about.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://rtionline.gov.in" target="_blank" rel="noopener">RTI Online Portal</a></li>
+                        <li><a href="https://rti.gov.in" target="_blank" rel="noopener">RTI Act Information</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Thodberry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/form-handler.js"></script>
+</body>
+
+</html>

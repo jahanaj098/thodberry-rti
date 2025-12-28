@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Browse and search RTI replies from across India. Searchable database of Right to Information disclosures.">
+    <title>RTI Library | Thodberry RTI Intelligence</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <span>📜</span>
+                <span>Thodberry RTI</span>
+            </a>
+
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="navbar-link">Home</a></li>
+                <li><a href="library.html" class="navbar-link active">RTI Library</a></li>
+                <li><a href="insights.html" class="navbar-link">Insights</a></li>
+                <li><a href="submit.html" class="navbar-link">Submit RTI</a></li>
+                <li><a href="about.html" class="navbar-link">About</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                </li>
+            </ul>
+
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="section" style="padding-top: calc(var(--space-12) + 60px);">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h1>RTI Library</h1>
+                <p class="text-xl text-secondary">
+                    Search across <span id="total-count">thousands of</span> RTI replies from across India
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-wrapper">
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" class="search-input"
+                        placeholder="Search by subject, department, location, or keyword...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label class="form-label">Authority</label>
+                    <select id="filter-authority" class="form-select">
+                        <option value="">All</option>
+                        <option value="Central">Central</option>
+                        <option value="State">State</option>
+                        <option value="Local">Local</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="form-label">State/UT</label>
+                    <select id="filter-state" class="form-select">
+                        <option value="">All States</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="form-label">Year</label>
+                    <select id="filter-year" class="form-select">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+
+                <div class="filter-group" style="display: flex; align-items: flex-end;">
+                    <button id="reset-filters" class="btn btn-outline w-full">
+                        Reset Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RTI Results -->
+    <section class="section" style="padding-top: 0;">
+        <div class="container">
+            <div class="flex justify-between items-center mb-6">
+                <p class="text-secondary">
+                    Showing <span id="result-count">0</span> RTI(s)
+                </p>
+                <select id="sort-by" class="form-select" style="width: 200px;">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="relevance">Most Relevant</option>
+                </select>
+            </div>
+
+            <div id="rti-results">
+                <p class="text-center text-muted py-8">Loading RTI library...</p>
+            </div>
+
+            <!-- Load More Button -->
+            <div id="load-more-container" class="text-center mt-8 hidden">
+                <button id="load-more-btn" class="btn btn-outline btn-lg">
+                    Load More RTIs
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Thodberry RTI Intelligence</h4>
+                    <p class="text-secondary">
+                        A neutral, public knowledge platform that preserves and organizes RTI disclosures.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="library.html">RTI Library</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="submit.html">Submit RTI</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html#disclaimer">Disclaimer</a></li>
+                        <li><a href="about.html#editorial-policy">Editorial Policy</a></li>
+                        <li><a href="about.html#data-ethics">Data Ethics</a></li>
+                        <li><a href="about.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://rtionline.gov.in" target="_blank" rel="noopener">RTI Online Portal</a></li>
+                        <li><a href="https://rti.gov.in" target="_blank" rel="noopener">RTI Act Information</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Thodberry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        let allRTIs = [];
+        let filteredRTIs = [];
+        let displayedCount = 0;
+        const ITEMS_PER_PAGE = 20;
+
+        // Load RTI data
+        async function loadRTIData() {
+            try {
+                const response = await fetch('data/rti-data.json');
+                const data = await response.json();
+                allRTIs = data.rtis || [];
+                filteredRTIs = [...allRTIs];
+
+                // Update total count
+                document.getElementById('total-count').textContent = allRTIs.length;
+
+                // Populate filter options
+                populateFilters();
+
+                // Display initial results
+                displayResults();
+
+            } catch (error) {
+                console.error('Error loading RTI data:', error);
+                document.getElementById('rti-results').innerHTML = `
+          <div class="card text-center">
+            <h3>No RTI Data Available Yet</h3>
+            <p class="text-secondary mb-4">The library is being built. Check back soon or submit your own RTI reply!</p>
+            <a href="submit.html" class="btn btn-primary">Submit RTI Reply</a>
+          </div>
+        `;
+            }
+        }
+
+        // Populate filter dropdowns
+        function populateFilters() {
+            // States
+            const states = [...new Set(allRTIs.map(r => r.state).filter(s => s))].sort();
+            const stateSelect = document.getElementById('filter-state');
+            states.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state;
+                option.textContent = state;
+                stateSelect.appendChild(option);
+            });
+
+            // Years
+            const years = [...new Set(allRTIs.map(r => r.year).filter(y => y))].sort().reverse();
+            const yearSelect = document.getElementById('filter-year');
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            });
+        }
+
+        // Filter RTIs
+        function filterRTIs() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const authorityFilter = document.getElementById('filter-authority').value;
+            const stateFilter = document.getElementById('filter-state').value;
+            const yearFilter = document.getElementById('filter-year').value;
+
+            filteredRTIs = allRTIs.filter(rti => {
+                // Search filter
+                const matchesSearch = !searchTerm ||
+                    rti.subject.toLowerCase().includes(searchTerm) ||
+                    rti.department.toLowerCase().includes(searchTerm) ||
+                    (rti.disclosure && rti.disclosure.toLowerCase().includes(searchTerm)) ||
+                    (rti.state && rti.state.toLowerCase().includes(searchTerm)) ||
+                    (rti.tags && rti.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+
+                // Authority filter
+                const matchesAuthority = !authorityFilter || rti.authority === authorityFilter;
+
+                // State filter
+                const matchesState = !stateFilter || rti.state === stateFilter;
+
+                // Year filter
+                const matchesYear = !yearFilter || rti.year === parseInt(yearFilter);
+
+                return matchesSearch && matchesAuthority && matchesState && matchesYear;
+            });
+
+            // Sort results
+            sortResults();
+
+            // Reset and display
+            displayedCount = 0;
+            displayResults();
+        }
+
+        // Sort results
+        function sortResults() {
+            const sortBy = document.getElementById('sort-by').value;
+
+            if (sortBy === 'newest') {
+                filteredRTIs.sort((a, b) => new Date(b.uploadDate || b.date) - new Date(a.uploadDate || a.date));
+            } else if (sortBy === 'oldest') {
+                filteredRTIs.sort((a, b) => new Date(a.uploadDate || a.date) - new Date(b.uploadDate || b.date));
+            }
+            // 'relevance' keeps the current order
+        }
+
+        // Display results
+        function displayResults() {
+            const resultsContainer = document.getElementById('rti-results');
+            document.getElementById('result-count').textContent = filteredRTIs.length;
+
+            if (filteredRTIs.length === 0) {
+                resultsContainer.innerHTML = `
+          <div class="card text-center">
+            <h3>No RTIs Found</h3>
+            <p class="text-secondary">Try adjusting your search or filters</p>
+          </div>
+        `;
+                document.getElementById('load-more-container').classList.add('hidden');
+                return;
+            }
+
+            // Get items to display
+            const itemsToShow = filteredRTIs.slice(0, displayedCount + ITEMS_PER_PAGE);
+            displayedCount = itemsToShow.length;
+
+            // Render RTI cards
+            const html = itemsToShow.map(rti => `
+        <div class="rti-card">
+          <div class="rti-card-header">
+            <div>
+              <h3 class="rti-card-title">${rti.subject}</h3>
+            </div>
+            <span class="department-badge">${rti.department}</span>
+          </div>
+          
+          <div class="rti-card-meta">
+            ${rti.date ? `<span>📅 ${formatDate(rti.date)}</span>` : ''}
+            <span>⚡ ${rti.authority}</span>
+            ${rti.state ? `<span>📍 ${rti.state}</span>` : ''}
+            ${rti.uploadedBy ? `<span>👤 ${rti.uploadedBy}</span>` : ''}
+          </div>
+          
+          ${rti.disclosure ? `<p class="rti-card-disclosure">${rti.disclosure}</p>` : ''}
+          
+          <div class="rti-card-tags">
+            ${rti.tags ? rti.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+          </div>
+          
+          <div class="flex gap-3 mt-4">
+            ${rti.documentUrl ? `<a href="${rti.documentUrl}" target="_blank" class="btn btn-sm btn-primary">📄 View Document</a>` : ''}
+          </div>
+        </div>
+      `).join('');
+
+            resultsContainer.innerHTML = html;
+
+            // Show/hide load more button
+            if (displayedCount < filteredRTIs.length) {
+                document.getElementById('load-more-container').classList.remove('hidden');
+            } else {
+                document.getElementById('load-more-container').classList.add('hidden');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('search-input').addEventListener('input', debounce(filterRTIs, 300));
+        document.getElementById('filter-authority').addEventListener('change', filterRTIs);
+        document.getElementById('filter-state').addEventListener('change', filterRTIs);
+        document.getElementById('filter-year').addEventListener('change', filterRTIs);
+        document.getElementById('sort-by').addEventListener('change', () => {
+            displayedCount = 0;
+            sortResults();
+            displayResults();
+        });
+
+        document.getElementById('reset-filters').addEventListener('click', () => {
+            document.getElementById('search-input').value = '';
+            document.getElementById('filter-authority').value = '';
+            document.getElementById('filter-state').value = '';
+            document.getElementById('filter-year').value = '';
+            filterRTIs();
+        });
+
+        document.getElementById('load-more-btn').addEventListener('click', displayResults);
+
+        // Load data on page load
+        loadRTIData();
+    </script>
+</body>
+
+</html>
