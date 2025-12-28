@@ -214,12 +214,32 @@
             }
         });
 
-        // Open Modal
-        function openDocument(url, title) {
+        // Open Modal (Updated with description)
+        function openDocument(url, title, description) {
             modalTitle.textContent = title || 'Document Viewer';
+
+            // Allow checking description in modal too if passed
+            // For now, we mainly use the iframe
             modalFrame.src = url;
             modal.classList.add('active');
         }
+
+        // Toggle Disclosure Text
+        function toggleDisclosure(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('expanded');
+                // Toggle button text
+                const btn = el.nextElementSibling;
+                if (btn) {
+                    btn.textContent = el.classList.contains('expanded') ? 'Show Less' : 'Read More';
+                }
+            }
+        }
+
+        // Make global
+        window.openDocument = openDocument;
+        window.toggleDisclosure = toggleDisclosure;
 
         // Load RTI data
         async function loadRTIData() {
