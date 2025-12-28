@@ -51,7 +51,7 @@
 
     <!-- Page Header -->
     <section class="section" style="padding-top: calc(var(--space-12) + 60px);">
-        <div class="container">
+        <div class="container library-search-container">
             <div class="text-center mb-8">
                 <h1>RTI Library</h1>
                 <p class="text-xl text-secondary">
@@ -60,12 +60,10 @@
             </div>
 
             <!-- Search Bar -->
-            <div class="search-wrapper">
-                <div class="search-input-wrapper">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="search-input" class="search-input"
-                        placeholder="Search by subject, department, location, or keyword...">
-                </div>
+            <div class="search-input-wrapper">
+                <input type="text" id="search-input" placeholder="Search by subject, department, state, or keywords...">
+                <span class="search-icon"
+                    style="position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem;">🔍</span>
             </div>
         </div>
     </section>
@@ -73,11 +71,10 @@
     <!-- Filters -->
     <section class="section" style="padding-top: 0;">
         <div class="container">
-            <div class="filter-bar">
+            <div class="filter-controls">
                 <div class="filter-group">
-                    <label class="form-label">Authority</label>
-                    <select id="filter-authority" class="form-select">
-                        <option value="">All</option>
+                    <select id="filter-authority" class="filter-select">
+                        <option value="">All Authorities</option>
                         <option value="Central">Central</option>
                         <option value="State">State</option>
                         <option value="Local">Local</option>
@@ -85,22 +82,20 @@
                 </div>
 
                 <div class="filter-group">
-                    <label class="form-label">State/UT</label>
-                    <select id="filter-state" class="form-select">
+                    <select id="filter-state" class="filter-select">
                         <option value="">All States</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label class="form-label">Year</label>
-                    <select id="filter-year" class="form-select">
+                    <select id="filter-year" class="filter-select">
                         <option value="">All Years</option>
                     </select>
                 </div>
 
-                <div class="filter-group" style="display: flex; align-items: flex-end;">
-                    <button id="reset-filters" class="btn btn-outline w-full">
-                        Reset Filters
+                <div class="filter-group">
+                    <button id="reset-filters" class="btn btn-primary" style="padding: 0.8rem 1.5rem;">
+                        Reset
                     </button>
                 </div>
             </div>
