@@ -119,11 +119,11 @@
     border: 1px solid rgba(0, 240, 255, 0.2);
     border-radius: 50px;
     font-family: var(--font-mono);
-    font-size: 0.85rem;
     color: var(--accent-primary);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .hero-desc {
